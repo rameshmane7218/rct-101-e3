@@ -2,6 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { CartContext } from "../../context/CartContext";
 import styles from "./Navbar.module.css";
 // use react-router Link or NavLink
 // const Link = <a />;
@@ -10,7 +11,8 @@ import styles from "./Navbar.module.css";
 const Navbar = () => {
   const navigate = useNavigate();
   const {isAuth,logout} = useContext(AuthContext);
-
+  const {cardItemCount} = useContext(CartContext);
+  // console.log(cardItemCount)
   const handleOnClick = () =>{
     if(isAuth){
       logout();
@@ -26,7 +28,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
-        <span data-cy="navbar-cart-items-count">Cart:{/* count here */}</span>
+        <span data-cy="navbar-cart-items-count">Cart: ({isAuth ? cardItemCount: 0})</span>
         <button data-cy="navbar-login-logout-button" onClick={handleOnClick}>{isAuth?"Logout":"Login"}</button>
       </div>
     </div>
